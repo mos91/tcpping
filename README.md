@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mos91/tcpping.svg?branch=master)](https://travis-ci.org/mos91/tcpping)
+
 TCPPing is simple network tool for estimating and gathering network bandwith metrics with remote host, on which the same instance of this tool was started.
 
 The metrics are gathered from connection:
