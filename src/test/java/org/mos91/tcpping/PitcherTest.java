@@ -14,6 +14,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Queue;
+import java.util.TimeZone;
 
 import static com.google.common.primitives.Bytes.concat;
 import static com.google.common.primitives.Longs.toByteArray;
@@ -79,7 +80,7 @@ public class PitcherTest {
     assertEquals(1, handler.getMessagesPerPeriod().get());
     assertEquals(1, handler.getReceiveNumberPerPeriod().get());
     long sendDuration = receivedMsg.getRcvTime() - receivedMsg.getSendTime();
-    assertEquals(sendDuration, handler.getSendDurationCumul().get());
+    assertEquals(handler.getSendDurationCumul().get(), sendDuration);
     assertTrue(handler.getRcvDurationCumul().get() >= 0);
     assertTrue(handler.getRttCumul().get() >= handler.getRcvDurationCumul().get() + handler.getSendDurationCumul().get());
     assertTrue(handler.getMaxRtt().get() >= handler.getRcvDurationCumul().get() + handler.getSendDurationCumul().get());
@@ -103,7 +104,7 @@ public class PitcherTest {
     PingMessage msg = new PingMessage(1L, data);
     msg.setSendTime(1469946444161L);
     msg.setRcvTime(1469946472026L);
-    msg.setRcvTimezoneOffset(10800000L);
+    msg.setRcvTimezoneOffset(TimeZone.getDefault().getRawOffset());
 
     return msg;
   }
@@ -111,7 +112,7 @@ public class PitcherTest {
   private ByteBuf buildByteBuf() {
     return Unpooled.wrappedBuffer(concat(toByteArray(1L),
       toByteArray(1469946444161L), toByteArray(1469946472026L),
-      toByteArray(10800000L), Ints.toByteArray(50), data.getBytes()));
+      toByteArray(TimeZone.getDefault().getRawOffset()), Ints.toByteArray(50), data.getBytes()));
   }
 
   private void checkSendMessage(PitcherHandler handler, EmbeddedChannel channel, PingMessage message) {

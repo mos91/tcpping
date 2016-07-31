@@ -16,6 +16,8 @@ import org.mos91.tcpping.messages.ping.PingMessageEncoder;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.TimeZone;
+
 import static com.google.common.primitives.Bytes.concat;
 import static com.google.common.primitives.Longs.toByteArray;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -48,7 +50,7 @@ public class CatcherTest {
   public Object[][] byteBuf() {
     ByteBuf buf = Unpooled.wrappedBuffer(concat(toByteArray(1L),
       toByteArray(1469946444161L), toByteArray(1469946472026L),
-      toByteArray(10800000L), Ints.toByteArray(50), shuffleData(50).getBytes()));
+      toByteArray(TimeZone.getDefault().getRawOffset()), Ints.toByteArray(50), shuffleData(50).getBytes()));
 
     return new Object[][]{{buf}};
   }

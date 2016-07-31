@@ -15,6 +15,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Queue;
+import java.util.TimeZone;
 
 import static com.google.common.primitives.Bytes.concat;
 import static com.google.common.primitives.Longs.toByteArray;
@@ -38,14 +39,14 @@ public class PingMessageDecoderTest {
     expected = new PingMessage(1L, data);
     expected.setSendTime(1469946444161L);
     expected.setRcvTime(1469946472026L);
-    expected.setRcvTimezoneOffset(10800000L);
+    expected.setRcvTimezoneOffset(TimeZone.getDefault().getRawOffset());
   }
 
   @DataProvider(name = "correctBuffer")
   public Object[][] correctBuffer() {
     ByteBuf buf = Unpooled.wrappedBuffer(concat(toByteArray(1L),
       toByteArray(1469946444161L), toByteArray(1469946472026L),
-      toByteArray(10800000L), Ints.toByteArray(50), expected.getData().getBytes()));
+      toByteArray(TimeZone.getDefault().getRawOffset()), Ints.toByteArray(50), expected.getData().getBytes()));
 
     return new Object[][]{{
       buf

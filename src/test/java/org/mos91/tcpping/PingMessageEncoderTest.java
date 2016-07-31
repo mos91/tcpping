@@ -11,6 +11,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.TimeZone;
+
 import static com.google.common.primitives.Bytes.concat;
 import static com.google.common.primitives.Longs.toByteArray;
 import static org.hamcrest.CoreMatchers.is;
@@ -38,21 +40,21 @@ public class PingMessageEncoderTest {
     PingMessage msgWithData = new PingMessage(1, data);
     msgWithData.setSendTime(1469946444161L);
     msgWithData.setRcvTime(1469946472026L);
-    msgWithData.setRcvTimezoneOffset(10800000L);
+    msgWithData.setRcvTimezoneOffset(TimeZone.getDefault().getRawOffset());
 
     ByteBuf bufWithData = Unpooled.wrappedBuffer(concat(toByteArray(1L),
       toByteArray(1469946444161L), toByteArray(1469946472026L),
-      toByteArray(10800000L), Ints.toByteArray(50),
+      toByteArray(TimeZone.getDefault().getRawOffset()), Ints.toByteArray(50),
       data.getBytes()));
 
     PingMessage msgWithoutData = new PingMessage(1, "");
     msgWithoutData.setSendTime(1469946444161L);
     msgWithoutData.setRcvTime(1469946472026L);
-    msgWithoutData.setRcvTimezoneOffset(10800000L);
+    msgWithoutData.setRcvTimezoneOffset(TimeZone.getDefault().getRawOffset());
 
     ByteBuf bufWithoutData = Unpooled.wrappedBuffer(concat(toByteArray(1L),
       toByteArray(1469946444161L), toByteArray(1469946472026L),
-      toByteArray(10800000L), Ints.toByteArray(0)));
+      toByteArray(TimeZone.getDefault().getRawOffset()), Ints.toByteArray(0)));
 
     return new Object[][]{{bufWithData, msgWithData}, {bufWithoutData, msgWithoutData}};
   }
@@ -62,7 +64,7 @@ public class PingMessageEncoderTest {
     PingMessage msg = new PingMessage(1, data);
     msg.setSendTime(1469946444161L);
     msg.setRcvTime(1469946472026L);
-    msg.setRcvTimezoneOffset(10800000L);
+    msg.setRcvTimezoneOffset(TimeZone.getDefault().getRawOffset());
 
     ByteBuf invalidBuf = Unpooled.wrappedBuffer(concat(toByteArray(1L),
       toByteArray(1469946444161L), data.getBytes()));
