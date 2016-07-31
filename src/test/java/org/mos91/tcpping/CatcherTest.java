@@ -39,7 +39,7 @@ public class CatcherTest {
     msg.setSendTime(1469946444161L);
 
     ByteBuf bufMask = Unpooled.wrappedBuffer(concat(toByteArray(1L),
-      toByteArray(0xFFFFFFFF), toByteArray(0xFFFFFFFF), toByteArray(0xFFFFFFFF)));
+      toByteArray(0xFFFFFFFF), toByteArray(0xFFFFFFFF)));
 
     return new Object[][]{{msg, bufMask}};
   }
@@ -86,7 +86,7 @@ public class CatcherTest {
   }
 
   @Test(dataProvider = "correctMessageAndBufMask")
-  public void shouldSetRcvTimeAndTzOffset(PingMessage msg, ByteBuf mask) {
+  public void shouldSetRcvTime(PingMessage msg, ByteBuf mask) {
     EmbeddedChannel channel =
       shouldHaveAppropriateHandlers(new PingMessageEncoder(), new PingMessageDecoder(), new CatcherHandler());
 
@@ -130,8 +130,7 @@ public class CatcherTest {
         ByteBuf buf = (ByteBuf) o;
 
         return ((buf.readLong() & mask.readLong()) > 0) &&
-          ((buf.readLong() & mask.readLong()) > 0) && ((buf.readLong() & mask.readLong()) > 0) &&
-          ((buf.readLong() & mask.readLong()) > 0);
+          ((buf.readLong() & mask.readLong()) > 0) && ((buf.readLong() & mask.readLong()) > 0);
       }
 
       @Override
