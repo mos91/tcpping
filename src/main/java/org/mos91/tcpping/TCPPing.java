@@ -45,7 +45,7 @@ public class TCPPing {
   @Option(name = "-h", depends = "-p", aliases = "--hostname", usage = "[Pitcher] the name of the computer which runs Catcher")
   private String hostname = HOST;
 
-  @Option(name = "-r", depends = "-[", aliases = "--rate", usage = "[Pitcher] Determines how frequently the pitcher will feed out the network metrics, "
+  @Option(name = "-r", depends = "-p", aliases = "--rate", usage = "[Pitcher] Determines how frequently the pitcher will feed out the network metrics, "
     + "e.g -r 5 means every 5 seconds")
   private int rate = 5;
 
