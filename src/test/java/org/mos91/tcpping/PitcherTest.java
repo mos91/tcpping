@@ -16,8 +16,8 @@ import static org.junit.Assert.assertThat;
 public class PitcherTest {
 
   @Test
-  public void shouldHaveAppropriateHandlers() {
-    EmbeddedChannel channel = new EmbeddedChannel(new PingMessageEncoder(), new PingMessageDecoder(), new PitcherHandler());
+  public void shouldHaveAppropriateHandlers(PingMessageEncoder encoder, PingMessageDecoder decoder, PitcherHandler handler) {
+    EmbeddedChannel channel = new EmbeddedChannel(encoder, decoder, handler);
 
     assertThat(channel.pipeline().get(PingMessageEncoder.class), notNullValue());
     assertThat(channel.pipeline().get(PingMessageDecoder.class), notNullValue());
