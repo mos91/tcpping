@@ -123,4 +123,36 @@ public class PitcherHandler extends ChannelDuplexHandler {
     LOG.error(MessageFormat.format("Exception in channel handler : {0}", getClass().getName()), cause);
     ctx.close();
   }
+
+  public AtomicLong getTotalNumber() {
+    return totalNumber;
+  }
+
+  public AtomicLong getMessagesPerPeriod() {
+    return messagesPerPeriod;
+  }
+
+  public AtomicLong getReceiveNumberPerPeriod() {
+    return receiveNumberPerPeriod;
+  }
+
+  public AtomicLong getTotalLoss() {
+    return totalLoss;
+  }
+
+  public AtomicLong getSendDurationCumul() {
+    return sendDurationCumul;
+  }
+
+  public AtomicLong getRcvDurationCumul() {
+    return rcvDurationCumul;
+  }
+
+  public AtomicLong getRttCumul() {
+    return rttCumul;
+  }
+
+  public AtomicLong getMaxRtt() {
+    return maxRtt;
+  }
 }
