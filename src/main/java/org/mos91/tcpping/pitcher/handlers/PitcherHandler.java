@@ -124,6 +124,14 @@ public class PitcherHandler extends ChannelDuplexHandler {
     ctx.close();
   }
 
+  public void setTimeBarrier(long millis) {
+    timeBarrier.set(millis);
+  }
+
+  public void setTimeBarrier() {
+    setTimeBarrier(new Date().getTime());
+  }
+
   public AtomicLong getTotalNumber() {
     return totalNumber;
   }

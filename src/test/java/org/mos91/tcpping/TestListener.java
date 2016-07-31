@@ -14,16 +14,16 @@ public class TestListener extends TestListenerAdapter {
 
   @Override
   public void onTestSuccess(ITestResult tr) {
-    LOG.info(tr.getName()+ "--Test method succeeded");
+    LOG.info(tr.getName()+ " -- Test method succeeded");
   }
 
   @Override
   public void onTestFailure(ITestResult tr) {
-    LOG.info(tr.getName()+ "--Test method failed");
+    LOG.info(tr.getName()+ " -- Test method failed");
   }
 
   @Override
   public void onTestSkipped(ITestResult tr) {
-    LOG.info(tr.getName()+ "--Test method skipped");
+    LOG.info(tr.getName()+ " -- Test method skipped");
   }
 }
